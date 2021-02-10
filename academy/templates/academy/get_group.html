@@ -1,0 +1,17 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Get_groups</title>
+ </head>
+ <body>
+    <ul>
+        {% for student in students %}
+            <p>FIO student: {{ student.first_name }} {{ student.last_name }}. Group:
+            {% for group in student.group_set.all %}
+                {{ group.course }}
+            {% endfor %}</p>
+        {% endfor %}
+    </ul>
+ </body>
+</html>
