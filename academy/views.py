@@ -14,5 +14,5 @@ def get_lecturer(request):
 
 
 def get_group(request):
-    students = Student.objects.all()
-    return render(request, 'academy/get_group.html', {'students': students})
+    groups = Group.objects.all()
+    return render(request, 'academy/get_group.html', {'groups': groups})

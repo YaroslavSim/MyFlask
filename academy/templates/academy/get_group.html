@@ -6,11 +6,11 @@
  </head>
  <body>
     <ul>
-        {% for student in students %}
-            <p>FIO student: {{ student.first_name }} {{ student.last_name }}. Group:
-            {% for group in student.group_set.all %}
-                {{ group.course }}
-            {% endfor %}</p>
+        {% for group in groups %}
+            <p>Number of group: {{ group.course }}</p>
+            {% for student in group.students.all %}
+                <p>FIO student: {{ student.first_name }} {{ student.last_name }} Email: {{ student.email }}</p>
+            {% endfor %}
         {% endfor %}
     </ul>
  </body>
