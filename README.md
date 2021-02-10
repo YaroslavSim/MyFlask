@@ -1,1 +1,1 @@
-# Homework 4. Flask, SQLite
+# Homework with Django
