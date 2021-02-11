@@ -25,5 +25,5 @@ class Group(models.Model):
 
     group_id = models.AutoField(primary_key=True)
     course = models.CharField(max_length=100)
-    students = models.ManyToManyField(Student)
-    teacher = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
+    students = models.ManyToManyField(Student, blank=True)
+    teacher = models.ForeignKey(Lecturer, on_delete=models.CASCADE, null=True)

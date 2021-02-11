@@ -1,7 +1,7 @@
 """Views."""
 from django.shortcuts import render
 
-from .models import Lecturer, Student
+from .models import Group, Lecturer, Student
 
 
 def get_student(request):
@@ -18,5 +18,5 @@ def get_lecturer(request):
 
 def get_group(request):
     """Group selection function."""
-    students = Student.objects.all()
-    return render(request, 'academy/get_group.html', {'students': students})
+    groups = Group.objects.all()
+    return render(request, 'academy/get_group.html', {'groups': groups})
