@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Get_lecturer</title>
+ </head>
+ <body>
+    <h2>Lecturers:</h2>
+    {% for lecturer in lecturers %}
+    <div>
+        <p>First name: {{ lecturer.first_name }} Last name: {{ lecturer.last_name }}. Email:  {{ lecturer.email|linebreaksbr }}</p>
+    </div>
+    {% empty %}
+        <p>There are no lecturer yet.</p>
+    {% endfor %}
+
+    <h2>Add lecturers:</h2>
+    {% if new_lecturer %}
+        <b> Your lecturer has been added.</b>
+    {% else %}
+        <form method="post">
+            {{ lecturer_form.as_p }}
+            {% csrf_token %}
+            <p><input type='submit' value='Add lecturer'></p>
+        </form>
+    {% endif %}
+ </body>
+</html>
