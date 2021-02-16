@@ -1,0 +1,18 @@
+{% extends 'academy/base.html' %}
+
+{% block title %}
+    View students
+{% endblock %}
+
+{% block content %}
+    <h2>Students:</h2>
+        {% for student in students %}
+        <div>
+            <p>First name: {{ student.first_name }} Last name: {{ student.last_name }}. Email:
+            {{ student.email|linebreaksbr }}</p>
+
+        </div>
+        {% empty %}
+        <p>There are no students yet.</p>
+    {% endfor %}
+{% endblock %}

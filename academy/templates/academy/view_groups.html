@@ -1,0 +1,17 @@
+{% extends 'academy/base.html' %}
+
+{% block title %}
+    View Groups
+{% endblock %}
+
+{% block content %}
+    <h2>Groups:</h2>
+    <ul>
+        {% for group in groups %}
+        <p>Number of group: {{ group.course }}</p>
+        {% for student in group.students.all %}
+        <p>FIO student: {{ student.first_name }} {{ student.last_name }} Email: {{ student.email }}</p>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+{% endblock %}
