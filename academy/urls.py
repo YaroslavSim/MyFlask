@@ -1,6 +1,10 @@
 """Urls."""
 from django.urls import path
+
 from django.conf.urls import url
+
+from django.conf.urls import include
+
 from . import views
 
 urlpatterns = [
@@ -19,5 +23,7 @@ urlpatterns = [
 
     path('edit_groups/', views.edit_groups, name='edit_groups'),
     path('groups/<int:group_id>/edit/', views.edit_group, name='edit_group'),
-    url(r'^delete_group/(?P<group_id>[0-9]+)/$', views.delete_group, name='delete_group')
+    url(r'^delete_group/(?P<group_id>[0-9]+)/$', views.delete_group, name='delete_group'),
+
+    url(r'^silk/', include('silk.urls', namespace='silk'))
 ]
