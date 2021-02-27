@@ -3,9 +3,9 @@ from django.shortcuts import render,redirect
 
 from django.shortcuts import get_object_or_404
 
-from .models import Group, Lecturer, Student
+from .models import Group, Lecturer, Student, Contact
 
-from .forms import StudentForm, LecturerForm, GroupForm
+from .forms import StudentForm, LecturerForm, GroupForm, ContactForm
 
 
 def view_student(request):
@@ -162,3 +162,24 @@ def delete_group(request, group_id):
         return redirect('edit_groups')
     groups = Group.objects.all()
     return render(request, 'academy/view_groups.html', {'groups': groups})
+
+
+def contact(request):
+    """Contact function."""
+    new_contact = None
+    if request.method == 'POST':
+        contact_form = ContactForm(data=request.POST)
+        if contact_form.is_valid():
+            new_contact = contact_form.save(commit=False)
+            new_contact.save()
+    context = {
+        'contact_form': ContactForm(),
+        'new_contact': new_contact
+    }
+    return render(request, 'academy/contact.html', context)
+
+
+def view_contact_message(request):
+    """Contact message selection function."""
+    contact_messages = Contact.objects.all()
+    return render(request, 'academy/view_contact_message.html', {'contact_messages': contact_messages})

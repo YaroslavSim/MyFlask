@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Academy{% endblock %}</title>
 </head>
+
 <body>
     <a href="{% url 'view_student' %}"><button>View students</button></a>
     <a href="{% url 'view_lecturer' %}"><button>View lecturers</button></a>
@@ -12,9 +14,12 @@
     <a href="{% url 'edit_students' %}"><button>Edit students</button></a>
     <a href="{% url 'edit_lecturers' %}"><button>Edit lecturers</button></a>
     <a href="{% url 'edit_groups' %}"><button>Edit groups</button></a>
+    <a href="{% url 'contact' %}"><button>Sent Contact Us</button></a>
+    <a href="{% url 'view_contact_message' %}"><button>View contact message</button></a>
     <div>
         {% block content %}
         {% endblock %}
     </div>
 </body>
+
 </html>
