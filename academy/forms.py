@@ -1,7 +1,7 @@
 """Forms."""
 from django import forms
 
-from .models import Student, Lecturer, Group
+from .models import Student, Lecturer, Group, Contact
 
 
 class StudentForm(forms.ModelForm):
@@ -26,3 +26,11 @@ class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = ('course', 'students', 'teacher')
+
+
+class ContactForm(forms.ModelForm):
+    """ContactForm."""
+
+    class Meta:
+        model = Contact
+        fields = ('name', 'email', 'message')

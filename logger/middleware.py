@@ -1,9 +1,11 @@
-from logger.models import Log
-
+"""Middleware."""
 import time
+
+from logger.models import Log
 
 
 class LoggerMiddleware:
+    """LoggerMiddleware class."""
 
     def __init__(self, get_response):
         self.get_response = get_response

@@ -1,0 +1,18 @@
+{% extends 'academy/base.html' %}
+
+{% block title %}
+    View Contact Messages
+{% endblock %}
+
+{% block content %}
+    <h2>Contact Messages:</h2>
+    {% for contact_message in contact_messages %}
+    <div>
+        <p>Name: {{ contact_message.name }} Email: {{ contact_message.email }}</p>
+        <p>Message: {{ contact_message.message }}</p>
+
+    </div>
+    {% empty %}
+        <p>There are no students yet.</p>
+    {% endfor %}
+{% endblock %}

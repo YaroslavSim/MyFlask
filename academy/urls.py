@@ -25,5 +25,7 @@ urlpatterns = [
     path('groups/<int:group_id>/edit/', views.edit_group, name='edit_group'),
     url(r'^delete_group/(?P<group_id>[0-9]+)/$', views.delete_group, name='delete_group'),
 
-    url(r'^silk/', include('silk.urls', namespace='silk'))
+    url(r'^silk/', include('silk.urls', namespace='silk')),
+    path('contact/', views.contact, name='contact'),
+    path('view_contact_message/', views.view_contact_message, name='view_contact_message')
 ]
