@@ -31,4 +31,4 @@ def capitalize_name_group(sender, instance, **kwargs):
 @receiver(post_save, sender=Contact)
 def send_notification(sender, instance, **kwargs):
     """Send email post_save function."""
-    send_email(instance)
+    send_email.delay(instance.to_dict())

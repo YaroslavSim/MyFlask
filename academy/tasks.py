@@ -7,17 +7,17 @@ from sendgrid import SendGridAPIClient
 
 from sendgrid.helpers.mail import Mail
 
-from hillel_lesson.settings import SENDGRID_API_KEY
+from hillel_lesson.settings import EMAIL_SENDER, SENDGRID_API_KEY
 
 
 @shared_task
-def send_email(instance):
+def send_email(data):
     """Send email function."""
     message = Mail(
-        from_email='yaroslavsim@ukr.net',
-        to_emails='yaroslavsim@gmail.com',
-        subject='New message from {}'.format(instance.name),
-        html_content='<strong>Name: {}<br>Email: {}<br>Message: {}</strong>'.format(instance.name, instance.email, instance.message)
+        from_email='{}'.format(data['email']),
+        to_emails=EMAIL_SENDER,
+        subject='New message from {}'.format(data['name']),
+        html_content='<strong>Name: {}<br>Message: {}</strong>'.format(data['name'], data['message'])
         )
     sg = SendGridAPIClient(SENDGRID_API_KEY)
-    response = sg.send(message)
+    sg.send(message)
