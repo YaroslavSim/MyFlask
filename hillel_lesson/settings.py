@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 CELERY_BROKER_URL = 'amqp://localhost'
 EMAIL_SENDER = 'yaroslavsim@gmail.com'
+EXCHANGE_RATES_SOURCE = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -40,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'academy.apps.AcademyConfig',
     'logger',
-    'silk'
+    'silk',
+    'exchanger'
 ]
 
 MIDDLEWARE = [

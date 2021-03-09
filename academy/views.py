@@ -7,6 +7,8 @@ from .models import Group, Lecturer, Student, Contact
 
 from .forms import StudentForm, LecturerForm, GroupForm, ContactForm
 
+from exchanger.models import ExchangeRate
+
 
 def view_student(request):
     """Student selection function."""
@@ -183,3 +185,13 @@ def view_contact_message(request):
     """Contact message selection function."""
     contact_messages = Contact.objects.all()
     return render(request, 'academy/view_contact_message.html', {'contact_messages': contact_messages})
+
+
+def view_exchange_rate(request):
+    """Exchange Rate selection function."""
+    exchange_rates = ExchangeRate.objects.all()
+    context = {
+        k: v for ex_rate in exchange_rates
+        for k, v in ex_rate.to_dict().items()
+    }
+    return render(request, 'academy/view_exchange_rate.html', context)

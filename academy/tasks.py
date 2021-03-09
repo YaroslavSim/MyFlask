@@ -20,4 +20,4 @@ def send_email(data):
         html_content='<strong>Name: {}<br>Message: {}</strong>'.format(data['name'], data['message'])
         )
     sg = SendGridAPIClient(SENDGRID_API_KEY)
-    sg.send(message)
+    response = sg.send(message)

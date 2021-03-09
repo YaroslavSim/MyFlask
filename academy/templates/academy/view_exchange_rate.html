@@ -1,0 +1,33 @@
+{% extends 'academy/base.html' %}
+
+{% block title %}
+    View exchange rate
+{% endblock %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>USD (USD trend)</th>
+                <th>EUR (EUR trend)</th>
+                <th>RUR (RUR trend)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <th>Buy</th>
+                <td>{{USD_buy}} ({{USD_trend_buy}})</td>
+                <td>{{EUR_buy}} ({{EUR_trend_buy}})</td>
+                <td>{{RUR_buy}} ({{RUR_trend_buy}})</td>
+            </tr>
+            <tr>
+                <th>Sale</th>
+                <td>{{USD_sale}} ({{USD_trend_sale}})</td>
+                <td>{{EUR_sale}} ({{EUR_trend_sale}})</td>
+                <td>{{RUR_sale}} ({{RUR_trend_sale}})</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

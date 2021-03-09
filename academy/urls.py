@@ -27,5 +27,6 @@ urlpatterns = [
 
     url(r'^silk/', include('silk.urls', namespace='silk')),
     path('contact/', views.contact, name='contact'),
-    path('view_contact_message/', views.view_contact_message, name='view_contact_message')
+    path('view_contact_message/', views.view_contact_message, name='view_contact_message'),
+    path('view_exchange_rate/', views.view_exchange_rate, name='view_exchange_rate')
 ]
