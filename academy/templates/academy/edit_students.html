@@ -5,11 +5,13 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Edit students:</h2>
+    <h2>Students:</h2>
     {% for student in students %}
-    <div>
-        <p>First name: {{ student.first_name }} Last name: {{ student.last_name }}. Email:
-            {{ student.email|linebreaksbr }}
+    <div class="d-grid gap-3">
+        <p class="p-2 bg-light border">
+            First name: {{ student.first_name }}
+            Last name: {{ student.last_name }}.
+            Email: {{ student.email|linebreaksbr }}
             {% if user.is_authenticated %}
             <a href="{% url 'edit_student' student_id=student.student_id %}">
                 <button>Edit</button>
@@ -29,12 +31,19 @@
     {% if new_student %}
     <b> Your student has been added.</b>
     {% else %}
-    <form method="post">
-        {{ student_form.as_p }}
-        {% csrf_token %}
-        <p><input type='submit' value='Add student'></p>
-    </form>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+        <form method="post">
+            <div class="form-floating">
+                {{ student_form.as_p }}
+                {% csrf_token %}
+            </div>
+            <p><input type='submit' class="btn btn-primary" value='Add student'></p>
+        </form>
+    </div></nav>
+    </div>
+
     {% endif %}
     <a href="{% url 'view_student' %}">
-        <button>Return student list</button></a>
+        <button class="btn btn-primary" >Return student list</button></a>
     {% endblock %}

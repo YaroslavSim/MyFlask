@@ -9,6 +9,7 @@ class Student(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=254)
+    cover = models.ImageField(upload_to='covers/', default='covers/default.png')
 
 
 class Lecturer(models.Model):
@@ -18,6 +19,7 @@ class Lecturer(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=254)
+    cover = models.ImageField(upload_to='covers/', default='covers/default.png')
 
 
 class Group(models.Model):

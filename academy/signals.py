@@ -19,13 +19,13 @@ def capitalize_name_student(sender, instance, **kwargs):
 @receiver(pre_save, sender=Lecturer)
 def capitalize_name_lecturer(sender, instance, **kwargs):
     """Lecturer pre_save function."""
-    lecturer.first_name = instance.first_name.capitalize()
+    instance.first_name = instance.first_name.capitalize()
 
 
 @receiver(pre_save, sender=Group)
 def capitalize_name_group(sender, instance, **kwargs):
     """Group pre_save function."""
-    group.course = instance.course.capitalize()
+    instance.course = instance.course.capitalize()
 
 
 @receiver(post_save, sender=Contact)

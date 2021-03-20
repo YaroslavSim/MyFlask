@@ -5,10 +5,12 @@ Edit lecturers
 {% endblock %}
 
 {% block content %}
-<h2>Sent message:</h2>
+<h2>Sent message</h2>
 <form method="post">
-    {{ contact_form.as_p }}
-    {% csrf_token %}
-    <p><input type='submit' value='Sent message'></p>
+    <div class="form-floating">
+        {{ contact_form.as_p }}
+        {% csrf_token %}
+    </div>
+    <p><input type='submit' class="btn btn-primary" value='Sent message'></p>
 </form>
 {% endblock %}
