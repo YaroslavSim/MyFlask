@@ -15,4 +15,9 @@
     {% empty %}
         <p>There are no students yet.</p>
     {% endfor %}
+
+	{% if form.errors %}
+		<p>Your username and password didn't match. Please try again.</p>
+	{% endif %}
+
 {% endblock %}

@@ -9,6 +9,8 @@ from .forms import StudentForm, LecturerForm, GroupForm, ContactForm
 
 from exchanger.models import ExchangeRate
 
+from django.views.decorators.cache import cache_page
+
 
 def view_student(request):
     """Student selection function."""
