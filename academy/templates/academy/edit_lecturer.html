@@ -5,10 +5,12 @@
 {% endblock %}
 
 {% block content %}
+    {% if user.is_authenticated %}
     <h2>Edit lecturers:</h2>
     <form method="POST">
         {{ form.as_p }}
         {% csrf_token %}
         <button type="submit">Save</button>
     </form>
+    {% endif %}
 {% endblock %}
