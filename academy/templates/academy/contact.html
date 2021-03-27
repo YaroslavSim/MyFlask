@@ -6,11 +6,16 @@ Edit lecturers
 
 {% block content %}
 <h2>Sent message</h2>
-<form method="post">
-    <div class="form-floating">
-        {{ contact_form.as_p }}
-        {% csrf_token %}
-    </div>
-    <p><input type='submit' class="btn btn-primary" value='Sent message'></p>
-</form>
+{{ sender }}
+    {% if new_contact.email in sender %}
+        You recently wrote to us, we will contact you shortly!
+    {% else %}
+        <form method="post">
+            <div class="form-floating">
+                {{ contact_form.as_p }}
+                {% csrf_token %}
+            </div>
+            <p><input type='submit' class="btn btn-primary" value='Sent message'></p>
+        </form>
+    {% endif %}
 {% endblock %}

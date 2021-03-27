@@ -171,14 +171,22 @@ def delete_group(request, group_id):
 def contact(request):
     """Contact function."""
     new_contact = None
+    sender = request.session.get('sender')
     if request.method == 'POST':
         contact_form = ContactForm(data=request.POST)
         if contact_form.is_valid():
             new_contact = contact_form.save(commit=False)
-            new_contact.save()
+            if new_contact.email not in sender:
+                new_contact.save()
+                if sender:
+                    request.session['sender'].append(new_contact.email)
+                else:
+                    request.session['sender'] = [new_contact.email]
+                request.session.modified = True
     context = {
         'contact_form': ContactForm(),
-        'new_contact': new_contact
+        'new_contact': new_contact,
+        'sender': request.session.get('sender')
     }
     return render(request, 'academy/contact.html', context)
 
