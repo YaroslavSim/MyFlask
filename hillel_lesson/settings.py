@@ -20,8 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
-SENDGRID_API_KEY = ''
 CELERY_BROKER_URL = 'amqp://localhost'
 EMAIL_SENDER = 'yaroslavsim@gmail.com'
 EXCHANGE_RATES_SOURCE = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
