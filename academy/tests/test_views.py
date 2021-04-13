@@ -5,6 +5,10 @@ from django.urls import reverse
 
 from academy.models import Student, Contact
 
+from django.urls import resolve
+
+from django.test import Client
+
 
 FIRST_NAME = "Artur"
 LAST_NAME = "Avdeenko"
@@ -97,4 +101,3 @@ class AddGroupViewTest(TestCase):
         resp = self.client.get(reverse('add_group'))
         form = resp.context['group_form']
         self.assertTrue(form)
-        
