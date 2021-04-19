@@ -11,6 +11,8 @@ from exchanger.models import ExchangeRate
 
 from django.views.decorators.cache import cache_page
 
+from django.contrib.auth.decorators import login_required
+
 
 def view_student(request):
     """Student selection function."""
@@ -62,6 +64,7 @@ def edit_students(request):
     return render(request, 'academy/edit_students.html', context)
 
 
+#@login_required
 def edit_student(request, student_id):
     """Student edit function."""
     student = get_object_or_404(Student, student_id=student_id)
