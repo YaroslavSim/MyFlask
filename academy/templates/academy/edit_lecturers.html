@@ -11,10 +11,10 @@ Edit lecturers
     <p>First name: {{ lecturer.first_name }} Last name: {{ lecturer.last_name }}. Email:
         {{ lecturer.email|linebreaksbr }}
         {% if user.is_authenticated %}
-        <a href="{% url 'edit_lecturer' lecture_id=lecturer.lecture_id %}">
+        <a href="{% url 'edit_lecturer' pk=lecturer.lecture_id %}">
             <button>Edit</button>
         </a>
-        <a href="{% url 'delete_lecturer' lecture_id=lecturer.lecture_id %}">
+        <a href="{% url 'delete_lecturer' pk=lecturer.lecture_id %}">
             {% csrf_token %}
             <button>Delete</button>
         </a>

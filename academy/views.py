@@ -3,6 +3,8 @@ from django.shortcuts import render,redirect
 
 from django.shortcuts import get_object_or_404
 
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
+
 from .models import Group, Lecturer, Student, Contact
 
 from .forms import StudentForm, LecturerForm, GroupForm, ContactForm
@@ -12,6 +14,10 @@ from exchanger.models import ExchangeRate
 from django.views.decorators.cache import cache_page
 
 from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.urls import reverse_lazy
 
 
 def view_student(request):
@@ -208,3 +214,39 @@ def view_exchange_rate(request):
         for k, v in ex_rate.to_dict().items()
     }
     return render(request, 'academy/view_exchange_rate.html', context)
+
+
+class StudentCreateView(LoginRequiredMixin, CreateView):
+    model = Student
+    template_name = 'academy/create_student.html'
+    fields = ['first_name', 'last_name', 'email', 'cover']
+
+
+class StudentEditView(LoginRequiredMixin, UpdateView):
+    model = Student
+    template_name = 'academy/edit_student.html'
+    fields = ['first_name', 'last_name', 'email', 'cover']
+
+
+class StudentDeleteView(LoginRequiredMixin, DeleteView):
+    model = Student
+    template_name = 'academy/delete_student.html'
+    success_url = reverse_lazy('edit_students')
+
+
+class LecturerCreateView(LoginRequiredMixin, CreateView):
+    model = Lecturer
+    template_name = 'academy/create_lecturer.html'
+    fields = ['first_name', 'last_name', 'email', 'cover']
+
+
+class LecturerEditView(LoginRequiredMixin, UpdateView):
+    model = Lecturer
+    template_name = 'academy/edit_lecturer.html'
+    fields = ['first_name', 'last_name', 'email', 'cover']
+
+
+class LecturerDeleteView(LoginRequiredMixin, DeleteView):
+    model = Lecturer
+    template_name = 'academy/delete_lecturer.html'
+    success_url = reverse_lazy('edit_lecturers')
