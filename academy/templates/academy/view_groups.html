@@ -14,5 +14,8 @@
         <p>FIO student: {{ student.first_name }} {{ student.last_name }} Email: {{ student.email }}</p>
         {% endfor %}
         {% endfor %}
+        {% if groups.paginator.num_pages != 1 %}
+        {% include "academy/pagination.html" with page=groups %}
+        {% endif %}
     </ul>
 {% endblock %}

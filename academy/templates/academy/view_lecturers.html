@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Lecturers:</h2>
+    <h2 id='h2_lecturer' >Lecturers:</h2>
     {% for lecturer in lecturers %}
     <div>
         <p>First name: {{ lecturer.first_name }} Last name: {{ lecturer.last_name }}. Email:
@@ -14,4 +14,7 @@
     {% empty %}
     <p>There are no lecturer yet.</p>
     {% endfor %}
+    {% if lecturers.paginator.num_pages != 1 %}
+    {% include "academy/pagination.html" with page=lecturers %}
+    {% endif %}
 {% endblock %}

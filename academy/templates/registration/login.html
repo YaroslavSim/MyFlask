@@ -2,6 +2,9 @@
 {% load socialaccount %}
 
 {% block content %}
+    {% if form.errors %}
+        <p id="notification" >Your username and password didn't match. Please try again.</p>
+    {% endif %}
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         <div>
@@ -10,8 +13,8 @@
             <td>{{ form.password.label_tag }}</td>
             <td>{{ form.password }}</td>
         </div>
-        <input type="submit" value="login" />
-        <a href="{% url 'signup' %}">Sign Up</a>
+        <input type="submit" value="login" id="sunmit_login" />
+        <a href="{% url 'signup' %}" id="sign_up">Sign Up</a>
     </form>
     <a href="{% provider_login_url 'google' %}">Login With Google</a>
 
