@@ -13,10 +13,10 @@
             Last name: {{ student.last_name }}.
             Email: {{ student.email|linebreaksbr }}
             {% if user.is_authenticated %}
-            <a href="{% url 'edit_student' student_id=student.student_id %}">
+            <a href="{% url 'edit_student' pk=student.student_id %}">
                 <button>Edit</button>
             </a>
-            <a href="{% url 'delete_student' student_id=student.student_id %}">
+            <a href="{% url 'delete_student' pk=student.student_id %}">
                 {% csrf_token %}
                 <button>Delete</button>
             </a>

@@ -1,0 +1,12 @@
+<!-- templates/academy/delete_article.html -->
+
+{% extends 'academy/base.html' %}
+
+{% block content %}
+    <h1>Delete lecturer</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{ lecturer.lecture_id }}"?</p>
+        <input type="submit" value="Confirm" />
+    </form>
+{% endblock content %}

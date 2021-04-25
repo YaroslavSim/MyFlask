@@ -15,21 +15,28 @@ from django.views.decorators.cache import cache_page
 
 from django.urls import re_path
 
+from .views import StudentCreateView, StudentEditView, StudentDeleteView
+
+from .views import LecturerCreateView, LecturerEditView, LecturerDeleteView
+
 
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('allauth.urls')),
     path('students/', views.view_student, name='view_student'),
     path('lecturers/', views.view_lecturer, name='view_lecturer'),
     path('groups/', views.view_group, name='view_group'),
     path('add_group/', views.add_group, name='add_group'),
+    path('students/new', StudentCreateView.as_view(), name='create_student'),
+    path('lecturer/new', LecturerCreateView.as_view(), name='create_lecturer'),
 
     path('edit_students/', cache_page(60 * 5)(views.edit_students), name='edit_students'),
-    path('students/<int:student_id>/edit/', views.edit_student, name='edit_student'),
-    re_path(r'^delete_student/(?P<student_id>[0-9]+)/$', views.delete_student, name='delete_student'),
+    path('students/<int:pk>/edit/', StudentEditView.as_view(), name='edit_student'),
+    re_path(r'^delete_student/(?P<pk>[0-9]+)/$', StudentDeleteView.as_view(), name='delete_student'),
 
     path('edit_lecturers/', cache_page(60 * 5)(views.edit_lecturers), name='edit_lecturers'),
-    path('lecturers/<int:lecture_id>/edit/', views.edit_lecturer, name='edit_lecturer'),
-    re_path(r'^delete_lecturer/(?P<lecture_id>[0-9]+)/$', views.delete_lecturer, name='delete_lecturer'),
+    path('lecturers/<int:pk>/edit/', LecturerEditView.as_view(), name='edit_lecturer'),
+    re_path(r'^delete_lecturer/(?P<pk>[0-9]+)/$', LecturerDeleteView.as_view(), name='delete_lecturer'),
 
     path('edit_groups/', cache_page(60 * 5)(views.edit_groups), name='edit_groups'),
     path('groups/<int:group_id>/edit/', views.edit_group, name='edit_group'),
