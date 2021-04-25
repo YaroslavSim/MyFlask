@@ -19,23 +19,63 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy
 
+from hillel_lesson.settings import PER_PAGE
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 def view_student(request):
     """Student selection function."""
     students = Student.objects.all()
-    return render(request, 'academy/view_students.html', {'students': students})
+    paginator = Paginator(students, PER_PAGE)
+    page = request.GET.get('page')
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        students = paginator.page(1)
+    except EmptyPage:
+        students = paginator.page(paginator.num_pages)
+    context = {
+        'page': page,
+        'students': students
+    }
+    return render(request, 'academy/view_students.html', context)
 
 
 def view_lecturer(request):
     """Lecturer selection function."""
     lecturers = Lecturer.objects.all()
-    return render(request, 'academy/view_lecturers.html', {'lecturers': lecturers})
+    paginator = Paginator(lecturers, PER_PAGE)
+    page = request.GET.get('page')
+    try:
+        lecturers = paginator.page(page)
+    except PageNotAnInteger:
+        lecturers = paginator.page(1)
+    except EmptyPage:
+        lecturers = paginator.page(paginator.num_pages)
+    context = {
+        'page': page,
+        'lecturers': lecturers
+    }
+    return render(request, 'academy/view_lecturers.html', context)
 
 
 def view_group(request):
     """Group selection function."""
     groups = Group.objects.all()
-    return render(request, 'academy/view_groups.html', {'groups': groups})
+    paginator = Paginator(groups, PER_PAGE)
+    page = request.GET.get('page')
+    try:
+        groups = paginator.page(page)
+    except PageNotAnInteger:
+        groups = paginator.page(1)
+    except EmptyPage:
+        groups = paginator.page(paginator.num_pages)
+    context = {
+        'page': page,
+        'groups': groups
+    }
+    return render(request, 'academy/view_groups.html', context)
 
 
 def add_group(request):

@@ -169,3 +169,5 @@ LOGIN_REDIRECT_URL = '/students/'
 LOGOUT_REDIRECT_URL = '/students/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+PER_PAGE = 3

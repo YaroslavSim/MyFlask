@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Students:</h2>
+    <h2 id='h2_students'>Students:</h2>
         {% for student in students %}
         <div class="d-grid gap-3">
             <p class="p-2 bg-light border">
@@ -16,7 +16,11 @@
             <img style="width: 10%; height: auto;" class="img-thumbnail img-fluid" src="{{ student.cover.url }}">
             </p>
         </div>
+        <br>
         {% empty %}
         <p>There are no students yet.</p>
     {% endfor %}
+    {% if students.paginator.num_pages != 1 %}
+    {% include "academy/pagination.html" with page=students %}
+    {% endif %}
 {% endblock %}
