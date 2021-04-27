@@ -1,27 +1,25 @@
 """Views."""
 from django.shortcuts import render,redirect
-
 from django.shortcuts import get_object_or_404
-
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
-
 from .models import Group, Lecturer, Student, Contact
-
 from .forms import StudentForm, LecturerForm, GroupForm, ContactForm
-
 from exchanger.models import ExchangeRate
-
 from django.views.decorators.cache import cache_page
-
 from django.contrib.auth.decorators import login_required
-
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.urls import reverse_lazy
-
 from hillel_lesson.settings import PER_PAGE
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from academy.serializers import StudentSerializer, GroupSerializer, LecturerSerializer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework.decorators import authentication_classes
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import serializers
+from rest_framework import status
+from django.http import HttpResponse
 
 
 def view_student(request):
@@ -290,3 +288,165 @@ class LecturerDeleteView(LoginRequiredMixin, DeleteView):
     model = Lecturer
     template_name = 'academy/delete_lecturer.html'
     success_url = reverse_lazy('edit_lecturers')
+
+
+@api_view(['GET', 'POST'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def students(request):
+    if request.method == 'GET':
+        students = Student.objects.all()
+        serializer = StudentSerializer(students, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        rdata = request.data
+        data = {
+            'first_name': rdata.get('first_name'),
+            'last_name': rdata.get('last_name'),
+            'email': rdata.get('email')
+        }
+        serializer = StudentSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+
+@api_view(['GET', 'DELETE', 'PUT'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def api_student(request, student_id):
+    try:
+        student = Student.objects.get(pk=student_id)
+    except Student.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = StudentSerializer(student)
+        return Response(serializer.data)
+
+    if request.method == 'DELETE':
+        student.delete()
+        return HttpResponse(status=204)
+
+    if request.method == 'PUT':
+        first_name = request.data.get('first_name')
+        if first_name:
+            student.first_name = first_name
+        last_name = request.data.get('last_name')
+        if last_name:
+            student.last_name = last_name
+        email = request.datatoor.get('email')
+        if email:
+            student.email = email
+        student.save()
+        return HttpResponse(status=200)
+
+
+@api_view(['GET', 'POST'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def lecturers(request):
+    if request.method == 'GET':
+        lecturers = Lecturer.objects.all()
+        serializer = LecturerSerializer(lecturers, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        rdata = request.data
+        data = {
+            'first_name': rdata.get('first_name'),
+            'last_name': rdata.get('last_name'),
+            'email': rdata.get('email')
+        }
+        serializer = LecturerSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+
+@api_view(['GET', 'DELETE', 'PUT'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def api_lecturer(request, lecturer_id):
+    try:
+        lecturer = Lecturer.objects.get(pk=lecturer_id)
+    except Lecturer.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = LecturerSerializer(lecturer)
+        return Response(serializer.data)
+
+    if request.method == 'DELETE':
+        lecturer.delete()
+        return HttpResponse(status=204)
+
+    if request.method == 'PUT':
+        first_name = request.data.get('first_name')
+        if first_name:
+            lecturer.first_name = first_name
+        last_name = request.data.get('last_name')
+        if last_name:
+            lecturer.last_name = last_name
+        email = request.datatoor.get('email')
+        if email:
+            lecturer.email = email
+        lecturer.save()
+        return HttpResponse(status=200)
+
+
+@api_view(['GET', 'POST'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def groups(request):
+    if request.method == 'GET':
+        groups = Group.objects.all()
+        serializer = GroupSerializer(groups, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        rdata = request.data
+        data = {
+            'course': rdata.get('course'),
+            'students': rdata.get('students'),
+            'teacher': rdata.get('teacher')
+        }
+        serializer = GroupSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+
+@api_view(['GET', 'DELETE', 'PUT'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def api_group(request, group_id):
+    try:
+        group = Group.objects.get(pk=group_id)
+    except Group.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = GroupSerializer(group)
+        return Response(serializer.data)
+
+    if request.method == 'DELETE':
+        group.delete()
+        return HttpResponse(status=204)
+
+    if request.method == 'PUT':
+        course = request.data.get('course')
+        if course:
+            group.course = course
+        students = request.data.get('students')
+        if students:
+            group.students = students
+        teacher = request.datatoor.get('teacher')
+        if teacher:
+            group.teacher = teacher
+        group.save()
+        return HttpResponse(status=200)

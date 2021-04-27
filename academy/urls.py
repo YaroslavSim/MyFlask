@@ -46,7 +46,16 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('view_contact_message/', views.view_contact_message, name='view_contact_message'),
     path('view_exchange_rate/', views.view_exchange_rate, name='view_exchange_rate'),
-    path('users/', include('users.urls'))
+    path('users/', include('users.urls')),
+
+    path('api/v1/students/', views.students),
+    path('api/v1/students/<int:student_id>', views.api_student),
+
+    path('api/v1/lectures/', views.lecturers),
+    path('api/v1/lectures/<int:lecturer_id>', views.api_lecturer),
+
+    path('api/v1/groups/', views.groups),
+    path('api/v1/groups/<int:group_id>', views.api_group)
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
