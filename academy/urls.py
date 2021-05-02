@@ -55,7 +55,9 @@ urlpatterns = [
     path('api/v1/lectures/<int:lecturer_id>', views.api_lecturer),
 
     path('api/v1/groups/', views.groups),
-    path('api/v1/groups/<int:group_id>', views.api_group)
+    path('api/v1/groups/<int:group_id>', views.api_group),
+
+    path('api/v1/auth', views.authenticate_user)
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+import datetime
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -53,7 +54,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'django.contrib.sites'
+    'django.contrib.sites',
+    'rest_framework'
 ]
 
 SITE_ID = 3
@@ -173,3 +175,16 @@ LOGOUT_REDIRECT_URL = '/students/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 PER_PAGE = 3
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication'
+    ]
+}
+
+JWT_AUTH = {
+    'JWT_VERIFY': True,
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+}
