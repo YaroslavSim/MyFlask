@@ -23,8 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'brif8o@@blv(%w$xg-+ofn=ukv!o#e#g5vb@3$o2xj^8%zs(43'
-SENDGRID_API_KEY = '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'
+#SECRET_KEY = 'brif8o@@blv(%w$xg-+ofn=ukv!o#e#g5vb@3$o2xj^8%zs(43'
+#SENDGRID_API_KEY = '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'
+SECRET_KEY = os.environ.get('SECRET_KEY')
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+
 CELERY_BROKER_URL = 'amqp://localhost'
 EMAIL_SENDER = 'yaroslavsim@gmail.com'
 EXCHANGE_RATES_SOURCE = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
@@ -103,15 +106,26 @@ WSGI_APPLICATION = 'hillel_lesson.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+#
+#db_from_env = dj_database_url.config()
+#DATABASES['default'].update(db_from_env)
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
-
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
 
 
 # Password validation
