@@ -1,17 +1,15 @@
 from django.shortcuts import render
-
 from users.forms import SignUpForm
-
 from django.contrib.sites.shortcuts import get_current_site
-
 from django.utils.http import urlsafe_base64_encode
-
 from django.template.loader import render_to_string
-
 from users.token import account_activation_token
-
 from django.utils.encoding import force_bytes, force_str
-
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render,redirect
 
 def signup(request):
     if request.method == 'POST':
@@ -41,14 +39,14 @@ def activate(request, user_id, token):
     try:
         user_id = force_text(urlsafe_base64_decode(user_id))
         user = User.objects.get(pk=user_id)
-    except (TypeError, ValueError, ObjectDoesNotExist):
+    except (TypeError, ValueError):
         user = None
 
     if user and account_activation_token.check_token(user, token):
         user.is_active = True
         user.profile.email_confirmed = True
         user.save()
-        login(request, user)
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return redirect('/students/')
 
     return render(request, 'users/account_activation_invalid.html')
